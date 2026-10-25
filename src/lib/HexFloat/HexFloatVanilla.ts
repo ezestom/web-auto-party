@@ -36,6 +36,8 @@ export interface HexFloatOptions {
 }
 
 export interface HexFloatElements {
+  /** Optional image texture for effects that do not need HTML capture. */
+  image?: HTMLImageElement;
   /** Canvas with layoutsubtree that hosts the HTML content. */
   source: HTMLCanvasElement;
   /** The element inside the source canvas that gets captured. */
@@ -635,6 +637,7 @@ export function createHexFloat(
 ): HexFloatInstance | null {
   const config = { ...DEFAULTS, ...options };
   const { source, content, output } = elements;
+  const image = elements.image;
 
   const gl = output.getContext("webgl2", {
     alpha: true,
@@ -654,12 +657,14 @@ export function createHexFloat(
   const sourceCtx = source.getContext("2d") as ElementImageContext | null;
   const paintable = source as PaintableCanvas;
   const htmlInCanvas = Boolean(
+    !image &&
     sourceCtx &&
     typeof sourceCtx.drawElementImage === "function" &&
     typeof paintable.requestPaint === "function",
   );
 
-  let contentDirty = false;
+  const hasTexture = htmlInCanvas || Boolean(image);
+  let contentDirty = Boolean(image);
   let wake = () => {};
 
   if (htmlInCanvas) {
@@ -1145,7 +1150,7 @@ export function createHexFloat(
   syncCanvasSize();
 
   function uploadContent() {
-    if (!htmlInCanvas || !contentDirty) return;
+    if (!hasTexture || !contentDirty) return;
     contentDirty = false;
     gl!.bindTexture(gl!.TEXTURE_2D, contentTexture);
     gl!.texImage2D(
@@ -1154,7 +1159,7 @@ export function createHexFloat(
       gl!.RGBA,
       gl!.RGBA,
       gl!.UNSIGNED_BYTE,
-      source,
+      image ?? source,
     );
   }
 
@@ -1207,7 +1212,7 @@ export function createHexFloat(
       content.scrollTop * dpr,
     );
     gl!.uniform1f(uniforms.uTime, time);
-    gl!.uniform1f(uniforms.uHasContent, htmlInCanvas ? 1 : 0);
+    gl!.uniform1f(uniforms.uHasContent, hasTexture ? 1 : 0);
     gl!.uniform1f(uniforms.uMaxX, contentMaxX);
     gl!.uniform3f(uniforms.uBg, bg[0], bg[1], bg[2]);
     gl!.uniform3f(uniforms.uGapColor, seam[0], seam[1], seam[2]);

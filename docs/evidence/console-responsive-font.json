@@ -1,0 +1,92 @@
+[
+  {
+    "aspect": 1.6,
+    "controlFont": "googleSansCode, \"googleSansCode Fallback\", monospace, monospace",
+    "factsBelow": true,
+    "horizontalOverflow": false,
+    "menuFits": true,
+    "objectFit": "contain",
+    "width": 320
+  },
+  {
+    "aspect": 1.6,
+    "controlFont": "googleSansCode, \"googleSansCode Fallback\", monospace, monospace",
+    "factsBelow": true,
+    "horizontalOverflow": false,
+    "menuFits": true,
+    "objectFit": "contain",
+    "width": 390
+  },
+  {
+    "aspect": 1.6,
+    "controlFont": "googleSansCode, \"googleSansCode Fallback\", monospace, monospace",
+    "factsBelow": true,
+    "horizontalOverflow": false,
+    "menuFits": true,
+    "objectFit": "contain",
+    "width": 600
+  },
+  {
+    "aspect": 1.6,
+    "controlFont": "googleSansCode, \"googleSansCode Fallback\", monospace, monospace",
+    "factsBelow": true,
+    "horizontalOverflow": false,
+    "menuFits": true,
+    "objectFit": "contain",
+    "width": 735
+  },
+  {
+    "aspect": 1.6,
+    "controlFont": "googleSansCode, \"googleSansCode Fallback\", monospace, monospace",
+    "factsBelow": true,
+    "horizontalOverflow": false,
+    "menuFits": true,
+    "objectFit": "contain",
+    "width": 767
+  },
+  {
+    "aspect": 1.6,
+    "controlFont": "googleSansCode, \"googleSansCode Fallback\", monospace, monospace",
+    "factsBelow": true,
+    "horizontalOverflow": false,
+    "menuFits": true,
+    "objectFit": "contain",
+    "width": 768
+  },
+  {
+    "aspect": 1.6,
+    "controlFont": "googleSansCode, \"googleSansCode Fallback\", monospace, monospace",
+    "factsBelow": true,
+    "horizontalOverflow": false,
+    "menuFits": true,
+    "objectFit": "contain",
+    "width": 844
+  },
+  {
+    "aspect": 1.6,
+    "controlFont": "googleSansCode, \"googleSansCode Fallback\", monospace, monospace",
+    "factsBelow": true,
+    "horizontalOverflow": false,
+    "menuFits": true,
+    "objectFit": "contain",
+    "width": 900
+  },
+  {
+    "aspect": 1.6,
+    "controlFont": "googleSansCode, \"googleSansCode Fallback\", monospace, monospace",
+    "factsBelow": false,
+    "horizontalOverflow": false,
+    "menuFits": true,
+    "objectFit": "contain",
+    "width": 1024
+  },
+  {
+    "aspect": 1.6,
+    "controlFont": "googleSansCode, \"googleSansCode Fallback\", monospace, monospace",
+    "factsBelow": false,
+    "horizontalOverflow": false,
+    "menuFits": true,
+    "objectFit": "contain",
+    "width": 1440
+  }
+]

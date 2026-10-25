@@ -26,6 +26,8 @@ export interface BlazeOptions {
 }
 
 export interface BlazeElements {
+  /** Disable HTML capture when the effect is a decorative background. */
+  captureContent?: boolean;
   /** Canvas with layoutsubtree that hosts the HTML content. */
   source: HTMLCanvasElement;
   /** The element inside the source canvas that gets captured. */
@@ -365,6 +367,7 @@ export function createBlaze(
   const sourceCtx = source.getContext("2d") as ElementImageContext | null;
   const paintable = source as PaintableCanvas;
   const htmlInCanvas = Boolean(
+    elements.captureContent !== false &&
     sourceCtx &&
     typeof sourceCtx.drawElementImage === "function" &&
     typeof paintable.requestPaint === "function",

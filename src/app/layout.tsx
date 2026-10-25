@@ -1,97 +1,56 @@
 import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
-import { ThemeFavicon } from "@/components/common/theme-favicon";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import { UrlStateProvider } from "@/components/common/url-state-provider";
 
-const SITE_URL = "https://canvasui.dev";
-const DESCRIPTION =
-  "An open source component library of creative html-in-canvas and WebGL effects for React, Solid, Preact, Vue, Svelte, and vanilla JS. Creative effects running over live HTML.";
-
-const ORIGIN_TRIAL_TOKEN =
-  process.env.NEXT_PUBLIC_HTML_IN_CANVAS_OT_TOKEN ?? "";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+const title = "AutoParty — Your music. Automatically mixed.";
+const description = "Bring your own music, create themes and let local Auto-DJ handle the transitions. Take control with a two-deck mixer, add second-screen visuals and record a WAV mix.";
+const originTrialToken = process.env.NEXT_PUBLIC_HTML_IN_CANVAS_OT_TOKEN;
+const googleSansCode = localFont({
+  src: "./fonts/GoogleSansCode-VariableFont_wght.ttf",
+  variable: "--font-google-sans-code",
+  weight: "300 800",
+  display: "swap",
+  fallback: ["monospace"],
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: "Canvas UI: Creative Canvas and WebGL Component Library",
-    template: "%s | Canvas UI",
-  },
-  description: DESCRIPTION,
-  applicationName: "Canvas UI",
-  authors: [{ name: "David Haz", url: "https://github.com/DavidHDev" }],
-  creator: "David Haz",
-  keywords: [
-    "component library",
-    "react component library",
-    "vue component library",
-    "svelte component library",
-    "webgl component library",
-    "canvas components",
-    "ui components",
-    "canvas",
-    "webgl",
-    "html-in-canvas",
-    "creative ui",
-    "shader effects",
-    "web animations",
-    "react",
-    "vue",
-    "svelte",
-    "shadcn registry",
-  ],
+  ...(siteUrl ? { metadataBase: new URL(siteUrl), alternates: { canonical: "/" } } : {}),
+  title: { default: title, template: "%s | AutoParty" },
+  description,
+  applicationName: "AutoParty",
+  keywords: ["AutoParty", "Auto-DJ", "browser DJ mixer", "local music", "party programme", "two-deck mixer"],
   openGraph: {
     type: "website",
-    url: SITE_URL,
-    siteName: "Canvas UI",
+    title,
+    description,
+    siteName: "AutoParty",
     locale: "en_US",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Canvas UI" }],
+    ...(siteUrl ? { url: siteUrl, images: [{ url: "/autoparty-console.jpg", width: 1440, height: 900, alt: "AutoParty two-deck console" }] } : {}),
   },
   twitter: {
     card: "summary_large_image",
-    site: "@davidhdev",
-    creator: "@davidhdev",
-    images: ["/og.png"],
+    title,
+    description,
+    ...(siteUrl ? { images: [new URL("/autoparty-console.jpg", siteUrl).href] } : {}),
   },
-  icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-  },
-  manifest: "/site.webmanifest",
+  icons: { icon: [{ url: "/autoparty-logo.png", type: "image/png" }] },
+  manifest: "/autoparty.webmanifest",
 };
 
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-  ],
-};
+export const viewport: Viewport = { themeColor: "#08090d" };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`dark ${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}
-      style={{ colorScheme: "dark" }}
-    >
-      {ORIGIN_TRIAL_TOKEN ? (
-        <head>
-          <meta httpEquiv="origin-trial" content={ORIGIN_TRIAL_TOKEN} />
-        </head>
-      ) : null}
+    <html lang="en" suppressHydrationWarning className={`dark ${GeistSans.variable} ${GeistMono.variable} ${googleSansCode.variable} h-full antialiased`} style={{ colorScheme: "dark" }}>
+      {originTrialToken ? <head><meta httpEquiv="origin-trial" content={originTrialToken} /></head> : null}
       <body className="flex min-h-full flex-col bg-background text-foreground">
-        <ThemeProvider>
-          <ThemeFavicon />
-          <UrlStateProvider>{children}</UrlStateProvider>
-        </ThemeProvider>
+        <ThemeProvider><UrlStateProvider>{children}</UrlStateProvider></ThemeProvider>
       </body>
     </html>
   );

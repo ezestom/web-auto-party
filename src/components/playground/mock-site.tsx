@@ -33,10 +33,28 @@ export const MOCK_IMAGES = {
 function MockLink({
   children,
   className = "",
+  href,
+  target,
+  rel,
 }: {
   children: React.ReactNode;
   className?: string;
+  href?: string;
+  target?: string;
+  rel?: string;
 }) {
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={target}
+        rel={rel}
+        className={`inline-flex items-center justify-center cursor-pointer transition-colors duration-150 ${className}`}
+      >
+        {children}
+      </a>
+    );
+  }
   return (
     <button
       type="button"
@@ -516,6 +534,19 @@ export function MockSite({
           {copy.navLinks.map((label) => (
             <MockLink
               key={label}
+              href={
+                label === "Console" || label === "Studio"
+                  ? "https://free-ai-dj-mixing-console.vercel.app/"
+                  : undefined
+              }
+              target={
+                label === "Console" || label === "Studio" ? "_blank" : undefined
+              }
+              rel={
+                label === "Console" || label === "Studio"
+                  ? "noopener noreferrer"
+                  : undefined
+              }
               className="rounded-full px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground"
             >
               {label}
@@ -526,7 +557,12 @@ export function MockSite({
           <MockLink className="hidden px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground sm:block">
             {copy.signIn}
           </MockLink>
-          <MockLink className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background hover:bg-foreground/85">
+          <MockLink
+            href="https://free-ai-dj-mixing-console.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background hover:bg-foreground/85"
+          >
             {copy.navCta}
           </MockLink>
         </div>
@@ -540,23 +576,36 @@ export function MockSite({
           {copy.heroSub}
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <MockLink className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:bg-foreground/85">
+          <MockLink
+            href="https://free-ai-dj-mixing-console.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background hover:bg-foreground/85"
+          >
             {copy.heroCta}
           </MockLink>
-          <MockLink className="rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-muted/60">
+          <MockLink
+            href="https://free-ai-dj-mixing-console.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:bg-muted/60"
+          >
             {copy.heroAlt}
           </MockLink>
         </div>
       </section>
 
       <section className="px-4 sm:px-6" aria-label="Showcase">
-        <div
-          className={`relative aspect-video rounded-2xl border border-border/60 ${
+        <a
+          href="https://free-ai-dj-mixing-console.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`block relative aspect-video rounded-2xl border border-border/60 transition-transform duration-200 hover:scale-[1.005] ${
             heroBleed ? "" : "overflow-hidden"
           }`}
         >
           {heroMedia ?? <MockImage src={MOCK_IMAGES.hero} alt="Showcase" />}
-        </div>
+        </a>
       </section>
 
       <section
@@ -699,6 +748,9 @@ export function MockSite({
                 ))}
               </ul>
               <MockLink
+                href="https://free-ai-dj-mixing-console.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`mt-6 w-full rounded-full py-2.5 text-sm font-medium ${
                   tier.featured
                     ? "bg-foreground text-background hover:bg-foreground/85"
@@ -719,7 +771,12 @@ export function MockSite({
         <p className="mx-auto mt-4 max-w-md text-base leading-7 text-muted-foreground">
           {copy.finalSub}
         </p>
-        <MockLink className="mt-8 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background hover:bg-foreground/85">
+        <MockLink
+          href="https://free-ai-dj-mixing-console.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-8 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background hover:bg-foreground/85"
+        >
           {copy.finalCta}
         </MockLink>
       </section>
@@ -742,7 +799,30 @@ export function MockSite({
                 <ul className="mt-3 flex flex-col gap-2">
                   {column.links.map((label) => (
                     <li key={label}>
-                      <MockLink className="text-[13px] text-muted-foreground hover:text-foreground">
+                      <MockLink
+                        href={
+                          label === "Console" ||
+                          label === "Web Console" ||
+                          label === "Stem Extractor"
+                            ? "https://free-ai-dj-mixing-console.vercel.app/"
+                            : undefined
+                        }
+                        target={
+                          label === "Console" ||
+                          label === "Web Console" ||
+                          label === "Stem Extractor"
+                            ? "_blank"
+                            : undefined
+                        }
+                        rel={
+                          label === "Console" ||
+                          label === "Web Console" ||
+                          label === "Stem Extractor"
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
+                        className="text-[13px] text-muted-foreground hover:text-foreground"
+                      >
                         {label}
                       </MockLink>
                     </li>

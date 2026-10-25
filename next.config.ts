@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
+  devIndicators: false,
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -11,10 +12,6 @@ const nextConfig: NextConfig = {
         pathname: "/vi/**",
       },
     ],
-  },
-  experimental: {
-    // @ts-expect-error experimental viewTransition flag
-    viewTransition: true,
   },
 };
 

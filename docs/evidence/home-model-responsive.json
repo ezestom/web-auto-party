@@ -1,0 +1,44 @@
+[
+  {
+    "atDocumentEnd": true,
+    "footerVisible": true,
+    "height": 844,
+    "horizontalOverflow": false,
+    "width": 390
+  },
+  {
+    "atDocumentEnd": true,
+    "footerVisible": true,
+    "height": 390,
+    "horizontalOverflow": false,
+    "width": 844
+  },
+  {
+    "atDocumentEnd": true,
+    "footerVisible": true,
+    "height": 768,
+    "horizontalOverflow": false,
+    "width": 1024
+  },
+  {
+    "atDocumentEnd": true,
+    "footerVisible": true,
+    "height": 900,
+    "horizontalOverflow": false,
+    "width": 1440
+  },
+  {
+    "atDocumentEnd": true,
+    "footerVisible": true,
+    "height": 740,
+    "horizontalOverflow": false,
+    "width": 320
+  },
+  {
+    "atDocumentEnd": true,
+    "footerVisible": true,
+    "height": 1024,
+    "horizontalOverflow": false,
+    "width": 768
+  }
+]

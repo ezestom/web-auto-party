@@ -42,6 +42,8 @@ export interface FlameWrapOptions {
 }
 
 export interface FlameWrapElements {
+  /** Set false for a decorative border around ordinary DOM content. */
+  captureContent?: boolean;
   /** Canvas with layoutsubtree that hosts the HTML content. */
   source: HTMLCanvasElement;
   /** The element inside the source canvas that gets captured. */
@@ -431,6 +433,7 @@ export function createFlameWrap(
   const sourceCtx = source.getContext("2d") as ElementImageContext | null;
   const paintable = source as PaintableCanvas;
   const htmlInCanvas = Boolean(
+    elements.captureContent !== false &&
     sourceCtx &&
     typeof sourceCtx.drawElementImage === "function" &&
     typeof paintable.requestPaint === "function",
