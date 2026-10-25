@@ -94,3 +94,47 @@ Nuevas capturas: `evidence/flame-cards-desktop.jpg`, `evidence/flame-console-des
 ## Modelo de home de Canvas UI (estado actual)
 
 El pedido posterior de replicar el modelo de la home reemplaza el fondo global HexFloat por la estructura de la referencia: fondo negro, rails punteados, hero con Particle Reveal, guía dividida y cierre con partículas azules Blaze. Se mantienen nuestros textos, la captura real y el fuego exclusivamente en las dos cajas. El análisis y los parámetros reales están en `REFERENCIA-CANVAS-UI.md`. Las capturas anteriores con HexFloat global son históricas. La evidencia vigente lleva el prefijo `evidence/home-model-`.
+
+## Flying Button en el hero
+
+Se quitó el CTA Open AutoParty de la barra. El CTA del hero usa el componente oficial React Bits Flying Button (https://reactbits.dev/micro/flying-button), descargado del registro `FlyingButton-TS-CSS`, sin dependencias adicionales. Se conserva su licencia junto al componente. Preset: dark, medium, altitude 170, hoverTime 2.4, dos jets, thrusters y carryCursor activos, trigger hover, smoke/turbulence/wobble 1, sin rampa, thrust #8ec5ff y smoke #eef1f6.
+
+La escena está posicionada sobre la fila para no agregar 440 px de espacio vacío. El humo se desvanece en los límites y el enlace secundario sigue por encima de la escena. El botón abre la app real al hacer click o pulsar Enter; hay un enlace noscript. El motor original respeta prefers-reduced-motion y conserva el botón aunque no haya simulación WebGL. Adaptación local al código original: actualización de props del motor en useEffect para cumplir las reglas de React 19.
+
+Verificación: build de producción y TypeScript correctos, ESLint de los cuatro componentes sin errores y cuatro pruebas de HTML aprobadas. Vista real a 320 y 390 px sin desbordamiento; menú móvil abre/cierra con Escape. Enter en el CTA navegó a https://freeautoparty.vercel.app/ y se regresó a la landing. WebGL renderizó propulsores/humo sin errores de consola capturados. Evidencia: `evidence/flying-button-desktop.jpg` y `evidence/flying-button-mobile.jpg`. La preferencia de movimiento reducido se conserva desde el motor original; no se emuló en esta revisión.
+
+## Marca única, cierre animado e idiomas EN / ES
+
+El CTA del cierre reutiliza LaunchApp con el mismo Flying Button del hero. Se quitó la marca repetida del footer; se mantienen los enlaces y el crédito del desarrollador. La marca fija adopta el espaciado y subtítulo de la referencia, usando el logo oficial y BETA en naranja, visible también en móvil.
+
+La landing se exporta en inglés y ofrece castellano mediante el selector EN / ES del navbar. LanguageProvider mantiene el idioma mediante useSyncExternalStore y localStorage, con alternativa en memoria si el almacenamiento no está disponible. Actualiza lang y el título del documento. spanish.ts cubre navegación, títulos, cuerpo, botones, guía interactiva, preguntas/respuestas y etiquetas accesibles. Los nombres de controles de la app (Library, Party mode, Start party, REC y Visuals) conservan su nombre real para que las instrucciones coincidan con el producto. Las capturas reales de la app conservan su contenido original.
+
+Validación: build estático/TypeScript correctos; ESLint sin errores ni advertencias en los seis archivos modificados; seis pruebas aprobadas, incluida cobertura del diccionario. Navegación real con Enter desde el botón inferior a la app. Selector comprobado en ambos sentidos, persistencia de ES tras recargar y lang/título actualizados. Revisión visual a 320 px en ES: BETA visible, menú abre/cierra con Escape, cierre completo y sin desbordamiento horizontal. Consola sin errores capturados. Evidencia: evidence/bilingual-hero-es.jpg, evidence/bilingual-closing-mobile.jpg y evidence/bilingual-closing-en.jpg. Preview devuelto a inglés.
+
+## Glide Select e Hyperspeed
+
+Se integraron los dos componentes de React Bits desde el código completo adjuntado por el usuario. GlideSelect sustituye al select nativo y mantiene LanguageProvider, los códigos EN / ES, los nombres English / Castellano y la preferencia guardada. Usa los iconos Lucide ya instalados en lugar de sumar Hugeicons; conserva menú con apertura animada, indicador deslizante, selección con puntero, flechas, Enter y Escape. Se corrigieron dependencias de efectos y se añadió activación por click de tecnologías de asistencia. Código original y CSS quedan junto a la licencia react-bits.LICENSE.md.
+
+Se dejó de renderizar ConsoleHex en el hero. HeroHyperspeed coloca Hyperspeed detrás de la primera consola, con las estelas visibles por debajo y entre las tarjetas de acceso. La captura conserva su relación de aspecto y no pasa por ningún efecto. Preset ambiental: winding, curvature 0.8, speed 0.65, density 36, dust 60, glow 0.55, reflections 0.35, roadOpacity 0, interactive false y paleta original magenta/cian. La capa no intercepta puntero ni scroll. Un fondo discreto protege la legibilidad del epígrafe. El wrapper reacciona a movimiento reducido y a la visibilidad del documento; el motor original pausa los frames fuera de pantalla. Sin WebGL se conserva la consola estática.
+
+Validación: build de producción y TypeScript correctos; ESLint sin errores ni advertencias en los cinco componentes revisados; siete pruebas aprobadas. Comprobación real del selector con puntero (ES → EN), teclado (End + Enter a ES), apertura con Enter/flecha y cierre con Escape. Se revisaron 390 y 320 px sin desbordamiento; el menú cabe y la escena permite desplazarse. Cero instancias de ap-console-hex y un canvas de Hyperspeed detrás de la imagen; consola de navegador sin errores capturados. No se emuló la preferencia de movimiento reducido. Capturas: evidence/glide-select-desktop.jpg, evidence/glide-select-mobile.jpg y evidence/hyperspeed-console-desktop.jpg.
+
+## Hyperspeed hasta el título; tarjetas sin fuego
+
+Se retiraron las dos instancias de FlameBorder. Las tarjetas conservan sus iconos, enlaces y acentos naranja/cian, pero ya no tienen canvas ni bordes animados de fuego. Los propulsores de los CTA Flying Button se mantienen.
+
+HeroHyperspeed ahora pertenece a la sección completa del hero, antes del título, en vez de pertenecer a la figura de la consola. La capa comienza justo al terminar el nav, está detrás del contenido (z-index -1), tiene overflow hidden y no recibe eventos de puntero. El nav conserva z-index 10. Las ondas pueden verse detrás de la barra al desplazarse, sin pintar por encima de ella.
+
+Se agregó horizon al componente local Hyperspeed: 0.5 conserva el encuadre original; el hero usa 0.12. El ajuste utiliza camera.setViewOffset en resize, conservando el campo de visión y sin agrandar innecesariamente el canvas. Esto coloca el punto de fuga aproximadamente a la altura del título. Las sombras de texto sostienen la legibilidad del título y la descripción sobre las estelas.
+
+Validado: build/TypeScript, ESLint de tres componentes y siete pruebas correctos. En navegador: cero ap-fire-border; escena y nav comparten exactamente el límite vertical inicial (61 px escritorio, 65 px móvil a 390 px); sin desbordamiento horizontal, sin errores capturados. Capturas actuales: evidence/hyperspeed-full-hero.jpg, evidence/hyperspeed-full-hero-mobile.jpg y evidence/modes-without-fire.jpg.
+
+## Recorte lateral de Hyperspeed
+
+La escena queda recortada exactamente por los rails punteados del main (máximo 1152 px). El wrapper se extiende únicamente sobre el padding lateral del hero: 32 px en escritorio y 20 px en móvil. El canvas mantiene su amplitud dentro del wrapper, cuyo overflow hidden impide que las estelas o su brillo pinten fuera. El exterior conserva el fondo negro de la página.
+
+Build/TypeScript correctos. Medición real a 1920 px: main y recorte comparten los bordes 376.5 / 1528.5; a 390 px comparten 0 / 375, sin desbordamiento horizontal. Captura: evidence/hyperspeed-rail-clipped-desktop.jpg.
+
+## Legibilidad del hero
+
+El enlace See how it works del hero comparte ahora el mismo estilo base del cierre: fondo rgba(8,9,13,.5), borde blanco al 19%, radio 999 px y padding 11 px 24 px. Se retiraron sus excepciones de escritorio/móvil. Hyperspeed usa opacity .75 para reducir un 25% su intensidad completa, conservando el recorte lateral y las animaciones. Compilación/TypeScript correctos y estilos calculados de ambos botones iguales en navegador. Captura: evidence/hero-readable-cta.jpg.
