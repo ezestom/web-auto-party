@@ -34,19 +34,20 @@ test("FAQ remains operable without a JavaScript accordion", () => {
   }
 });
 
-test("the hero launch action replaces the navbar CTA and keeps a no-script destination", () => {
+test("the hero launch action replaces the navbar CTA and works without JavaScript", () => {
   const header = html.match(/<header\b[^>]*>([\s\S]*?)<\/header>/)?.[1];
   assert.ok(header);
   assert.doesNotMatch(header, /Open AutoParty/);
   const hero = html.match(/<section\b[^>]*aria-labelledby="hero-title"[^>]*>([\s\S]*?)<\/section>/)?.[1];
   assert.ok(hero);
-  assert.match(hero, /<button\b[^>]*class="flying-button__craft"/);
-  assert.match(hero, /<noscript><a href="https:\/\/freeautoparty\.vercel\.app\/"/);
+  assert.match(hero, /<a href="https:\/\/freeautoparty\.vercel\.app\/" class="ap-button ap-launch-normal"/);
 });
 
-test("English is the default and both app actions use Flying Button", () => {
+test("English is the default and both app actions have the same accessible fallback", () => {
   assert.match(html, /<html[^>]*lang="en"/);
-  assert.equal([...html.matchAll(/class="flying-button__craft"/g)].length, 2);
+  const actions = [...html.matchAll(/<a href="https:\/\/freeautoparty\.vercel\.app\/" class="ap-button ap-launch-normal"[^>]*>([\s\S]*?)<\/a>/g)];
+  assert.equal(actions.length, 2);
+  assert.equal(actions[0][1], actions[1][1]);
   assert.match(html, /<button[^>]*role="combobox"[^>]*aria-haspopup="listbox"[^>]*aria-label="Language"/);
   const footer = html.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/)?.[1];
   assert.ok(footer);

@@ -18,6 +18,6 @@ export function HeroHyperspeed() {
   }, []);
 
   return <div className="ap-hero-hyperspeed" aria-hidden="true">
-    {active && <Hyperspeed curve="winding" horizon={0.12} speed={0.65} curvature={0.8} density={36} dust={60} glow={0.55} reflections={0.35} roadOpacity={0} interactive={false} />}
+    {active && <Hyperspeed curve="winding" horizon={0.12} speed={0.325} curvature={0.8} density={36} dust={60} glow={0.55} reflections={0.35} roadOpacity={0} interactive={false} />}
   </div>;
 }
